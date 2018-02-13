@@ -1,0 +1,41 @@
+extends base.pug
+
+block content
+  .container
+    div(id="app", class="row")
+      .col-md-6
+        h3(class="formTitle text-primary") Please sign in:
+        form
+          div(class="form-group", :class="{'has-error': errors.has('username')}")
+           .row
+            .col-md-2
+              label Username
+            .col-md-7
+              input(type="text", :class="{'has-error': errors.has('username')}", v-validate="'required'",v-model="myForm.username", class= "form-control", placeholder="Enter your username", name="username")
+          div(class="form-group", :class="{'has-error': errors.has('password')}")
+           .row
+            .col-md-2
+              label Password
+            .col-md-7
+              input(type="password", v-validate="'required'", v-model="myForm.password", class="form-control", placeholder="Enter your password", name="password")
+         .form-group
+          .row
+            .col-md-2
+            .col-md-7
+              input(type = "submit", value = "Login", @click="validateBeforeSubmit()", class="form-control btn btn-primary")
+          .row
+            .col-md-2
+            .col-md-7
+              p Don't have an account?
+                &nbsp; 
+                a(href = "/register") Register
+              p Forgot your password?
+                &nbsp;
+                a(href = '/reset') Reset password
+          .row
+            .col-md-9
+              div(v-show='displayResponse', v-bind:class="{'alert': isAlert, 'alert-danger': hasError, 'alert-success': isSuccess }")      
+                ${ labelVal }
+
+block scripts
+  script(src="../static/js/login.js")

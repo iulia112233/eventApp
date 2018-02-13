@@ -1,0 +1,42 @@
+extends base.pug
+
+block content
+  .container
+    div(id="app" class="row")
+      .col-md-6
+         h3(class="text-primary formTitle") Register New Account:
+         form
+           div(class="form-group" :class="{'has-error': errors.has('username')}")
+             label Username
+             input(type="text", v-validate="'required:username'", v-model="myForm.username", class="form-control", placeholder= "Enter your username", name="username")
+           div(class="form-group" :class="{'has-error': errors.has('username')}")
+             label First Name
+             input(type="text", v-validate="'required:username'", v-model="myForm.surname", class="form-control", placeholder= "Enter your first name", name="surname")
+           div(class="form-group" :class="{'has-error': errors.has('username')}")
+             label Last Name
+             input(type="text", v-validate="'required:username'", v-model="myForm.name", class="form-control", placeholder= "Enter your last name", name="name")
+          .form-group
+            .row
+              .col-md-6
+                input(type="radio", name="role", v-model="myForm.role", value="guest")
+                label Free user
+                p A free user can only view events
+              .col-md-6
+                input(type="radio", name="role", v-model="myForm.role", value="user")
+                label VIP user
+                p VIP users can view and add events
+           div(class="form-group" :class="{'has-error': errors.has('password')}")
+             label Password
+             input(type="password", :class="{'has-error': errors.has('password')}", v-validate="'required:password'", v-model="myForm.password", class= "form-control", placeholder= "Enter your password", name="password")
+           div(class="form-group" :class="{'has-error': errors.has('repeat')}")
+             label Confirm Password
+             input(type="password", :class="{'has-error': errors.has('repeat')}", v-validate="'required|confirmed:password'", v-model="myForm.repeat", class= "form-control", placeholder= "Repeat your password", name="repeat")
+           .form-group
+             button(type = "button", value = "Register", @click="validateBeforeSubmit()", class = "form-control btn btn-primary") Register
+           .form-group
+             div(v-show='displayResponse', v-bind:class="{'alert':isAlert, 'alert-danger':hasError, 'alert-success':isSuccess }")      
+               ${ labelVal }
+
+
+block scripts
+  script(src="../static/js/register.js")

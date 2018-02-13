@@ -1,0 +1,169 @@
+extends base
+
+block content
+        #app
+          modal(v-if="showModal==true", ref="modal", :row="rowData", v-on:closemodal='closeModal')
+          div(class="ui container")
+            vuetable(ref="vuetable",
+                      api-url="/api/getUsers",
+                      :fields="fields",
+                       pagination-path="",
+                        @vuetable:pagination-data="onPaginationData")
+                        template(slot="actions", scope="props")
+                          .table-button-container
+                              button(class="ui button", @click="editRow(props.rowData)")
+                                i(class="fa fa-edit") Edit
+                              button(class="ui basic red button", @click="deleteRow(props.rowData)")
+                                i(class="fa fa-remove") Delete
+               vuetable-pagination(ref="pagination", @vuetable-pagination:change-page="onChangePage")
+
+
+block scripts
+
+
+  script(type="text/x-template" id="modal-template")
+    transition(name="modal")
+      .modal-mask
+        .modal-wrapper
+          .modal-container
+
+            .modal-header
+              slot(name="header")
+                h3(class="text-primary formTitle") Edit user data
+
+              slot(name="body")
+                form
+                  .form-group
+                    label First Name
+                    input(type="text", class="form-control", id="surname", placeholder="Add event title..", v-model="row.surname")  
+                  .form-group
+                    label Name
+                    input(type="text", class="form-control", id="name", placeholder="Add event title..", v-model="row.name")  
+                  .form-group
+                    label About me
+                    textarea(class="form-control", id="eventdescription", rows="5", placeholder="Add event description", v-model="row.aboutme")                 
+                  .form-group
+                    label Role
+                    select(class="form-control", v-model="row.role")
+                      option guest
+                      option user
+                      option admin
+                  div(v-if="!row.picture||row.picture=='null'")
+                    label No Picture
+                  div(v-else)
+                    .row
+                      img(:src="row.picture")
+                    .row
+                      button(type="button", @click="removeImage") Remove Image
+                .row
+                  button(class="modal-default-button", @click="submitEvent") Save changes
+                  button(class="modal-default-button", @click="closeModal") Cancel
+
+  script.
+    Vue.component('modal', {
+     template: '#modal-template',
+     delimiters: ['${', '}'],
+     props: ['row'],
+      data: function() {
+      return {
+          name: '',
+          description: '',
+          eventTime: '',
+          createdAt: '',
+          formData: new FormData(),
+          }
+        },
+    computed: {
+        rowData: {
+          get:  function() {       
+          return {'name': this.row.name,
+                  'surname': this.row.surname,
+                  'picture': '/static/img/' + this.row.picture,
+                  'aboutme': this.row.aboutme,
+                  'role': this.row.role
+                };
+              },
+            set: function(newVal) {
+              return {};
+            }
+           },
+       },
+    methods: {
+        removeImage: function () {
+          this.row.picture = '';
+        },
+        submitEvent: function () {
+          let formData = new FormData();
+          formData.append('id', this.row.id);
+          formData.append('name', this.row.name);
+          formData.append('surname', this.row.surname);
+          formData.append('aboutme', this.row.aboutme);
+          formData.append('image', this.row.picture);
+          formData.append('role', this.row.role);
+          
+          axios.post('api/editUser', formData)
+            .then(res => {
+                          console.log(res);
+                          this.$emit('closemodal');
+                           })
+                .catch(err => {
+                                console.log(err);
+                                });
+        },
+        closeModal: function() {
+          console.log('emit close');
+          this.$emit('closemodal');
+          }
+    },
+    watch: {
+      row: function (oldVal, newVal) {
+          console.log('watching picture ');
+        }
+      },
+    filter: {
+        formatImagePath: (img) => { return 'static/img/' + img; }
+      }
+    });
+
+    Vue.use(Vuetable);
+    var app = new Vue({
+      el: '#app',
+      delimiters: ['${', '}'],
+      components:{
+         'vuetable-pagination': Vuetable.VuetablePagination
+      },
+      data:{
+        fields: ['id','name', 'userName', 'aboutme', 'surname','role', '__slot:actions'],
+        showModal: '',
+        rowData: 'test data',
+      },
+      computed: {
+      },
+      methods: {
+        retreiveUsers() {
+          axios.get('/api/getUsers')
+            .then(resp => {
+                this.datasource = resp.data;
+              }) 
+                .catch(err =>{ console.log(err); });
+        },
+        onPaginationData (paginationData) {
+              this.$refs.pagination.setPaginationData(paginationData)
+                  },
+       onChangePage (page) {
+              this.$refs.vuetable.changePage(page);
+       },
+       editRow(rowData){
+            this.rowData = rowData;
+            this.showModal = true;
+       },
+       deleteRow(rowData){
+         alert("You clicked delete on"+ JSON.stringify(rowData))
+      },
+        closeModal() {
+        console.log('closeModal event in parent ');
+          this.showModal = false;
+          }
+        }
+        });    
+      app.retreiveUsers();             

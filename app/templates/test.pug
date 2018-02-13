@@ -1,0 +1,17 @@
+extends base.pug
+
+block content
+
+
+  #app
+     div ${ title }
+
+block scripts
+  script.
+     root = new Vue({
+        el: '#app',
+        delimiters: ["${","}"],
+        data: {
+          title: 'dasdasdasd',
+        }
+      })

@@ -1,0 +1,27 @@
+extends base
+
+block content
+
+  #app
+    .container
+      br
+      h3(style='color: white;') Order complete!
+
+      p Congratulations! Your order has been completed. We sent you a confirmation email for your records. Thanks so much!
+
+      div(v-if='orderDetails')
+        dl
+          dt Order Title
+          dd ${ orderDetails.description }
+          dt Order Number
+          dd ${ orderDetails.id }
+          dt Order Created
+          dd ${ orderDetails.created | moment }
+          dt Payment Amount
+          dd ${ orderDetails.amount | currency } ${ orderDetails.currency }
+          dd ${ orderDetails.description }
+          dt Email
+          dd ${ orderDetails.receipt_email }
+
+block scripts
+  script(src="../static/js/order-complete.js")

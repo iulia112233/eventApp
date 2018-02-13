@@ -1,0 +1,79 @@
+extends base.pug
+
+block content
+  #app
+    .container
+      .extend(v-if="addEvent==false")
+        .row
+          hr
+          .col-md-4
+            label(class="text-primary") Your events
+            div(v-for="event in myEventData", class="eventData text-primary")
+              .row
+                  a(class="eventLinks list-group-item", v-on:click="seeMore(this, event.id)") 
+                    ${ event.eventTitle } ${ event.eventCreated | formatDate }
+
+          .col-md-4
+          div(class="col-md-offset-4 col-md-4")
+            p(class="text-primary welcometext") Welcome, ${ userData.surname } ${ userData.name }!
+            img(v-bind:src="profilePicture", class="profilePicture")
+          div(class="col-md-offset-8 col-md-4 adminMenu")
+            div(class="row menuButtons")
+              div(v-if="role=='admin'")
+                button(type="button", class="btn btn-primary", @click="manageUsers")
+                  i(class="fa fa-columns", aria-hidden="true")
+                    label &nbsp; Manage users
+                button(type="button", class="btn btn-primary", @click="openModal")
+                  i(class="fa fa-plus-square fa-1g")
+                    label &nbsp; Add new event
+              div(v-if="role=='user'")
+                button(type="button", class="btn btn-primary", @click="openModal")
+                  i(class="fa fa-plus-square fa-1g")
+                    label &nbsp; Add new event
+
+        hr
+        .row
+          h3(class="text-primary") Recent events
+          div(v-for="(event, key) in eventData", class="eventData")
+            div(class="row eventRow")
+                .col-md-4
+                  img(:src="event.eventImage")
+                .col-md-8
+                 label ${ event.eventTitle }
+                 p
+                  sub
+                    i Added on: ${ event.eventCreated | formatDate }
+                  div(v-if="event.eventTime")
+                    p Date: ${ event.eventTime | formatDate }
+                  div(v-if="event.eventDescription")
+                    p(class="eventBody") ${ event.eventDescription }
+                  .row
+                      .col-md-5
+                        .col-md-4
+                          button(class="btn btn-primary", type="button", v-on:click="seeMore(this, event.id)") SEE MORE
+                        .col-md-1
+                        div(v-if="role=='admin'", class="col-md-4")
+                          confirm-button(:on-confirm="confirm", class="btn btn-primary", confirm-text="Are you sure you want to remove the event?", :event="event", :event-key="key") DELETE EVENT
+
+                      .col-md-1
+                        p ${ event.numberOfComments }
+                         i(class="fa fa-comment-o fa-1x", aria-hidden="true")
+                      .col-md-1
+                        p ${ event.likes }
+                         i(class="fa fa-thumbs-up fa-1x", aria-hidden="true")
+                      .col-md-1
+                        p ${ event.love }
+                         i(class="fa fa-heart-o fa-1x" aria-hidden="true")
+       modal(v-if="showModal", @close="showModal = false", v-on:closemodal='closeModal', :coords="coords")
+
+
+block scripts
+  script(src='../static/js/modal.js')
+  script#modal-template(type='text/x-template')
+    include /components/modal
+  script(src="../static/js/ticket.js")
+  script#ticket-template(type='text/x-template')
+    include /components/ticket
+  script(type="text/javascript", src="../static/js/index.js")
+  script(src="../static/js/confirm.js")
+

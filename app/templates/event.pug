@@ -1,0 +1,60 @@
+extends base
+
+block content
+
+  #app
+    .row
+      div(v-if="event.eventImage")
+        div(class="ev-header", :style="{ backgroundImage: 'url(\''+ event.eventImage  + '\')'}")
+    .container
+      .row
+        p(class="text-primary eventTitle")
+         ${ event.eventTitle }
+      .row
+        p(class="text-muted")
+          small
+           p Event time: ${ event.eventTime }
+      .row
+        .col-md-6
+          div(class="event", v-if="event.lat && event.lng")
+            #map
+               #infowindow-content
+                img(src="", width="16", height="16", id="place-icon")
+                span(id="place-name",  class="title")
+                span(id="place-address")
+        .col-md-6
+          h4 Buy Tickets
+          div(v-for="ticket in tickets")
+            .form-group
+              h2 ${ ticket.type }
+              label ${ ticket.price }
+              label ${ ticket.currency }
+              button(type="button", class="btn btn-primary", @click='buyTicket(ticket.id)') BUY
+      div(class="row commentBody")
+          pre
+            ${ event.eventDescription }
+      .row
+        form
+          .form-group
+            button(type="button", class="btn btn-primary", @click="addReaction(this,'like')")
+              i(class="fa fa-thumbs-up fa-2x", aria-hidden="true")
+            button(type="button", class="btn btn-primary", @click="addReaction(this, 'love')")
+              i(class="fa fa-heart-o fa-2x" aria-hidden="true")
+          .form-group
+            textarea(rows = 4, class="form-control", placeholder="Enter your comment here...", v-model="comment")
+          .form-group
+            button(type="button", class="btn btn-primary", @click='postComment') Post Comment
+      div(class="row commentBox text-primary")
+        div(v-for="comment in commentData")
+          .row
+            .col-md-2
+             div(v-if="comment.picture")
+              img(:src="comment.picture")
+            .col-md-10
+              .row
+                p ${ comment.surname }&nbsp;${ comment.name } commented:
+              div(class="row text-muted") 
+                p ${ comment.comment }
+
+block scripts
+   script(src='../static/js/event.js')     

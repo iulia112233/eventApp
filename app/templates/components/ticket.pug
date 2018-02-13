@@ -1,0 +1,24 @@
+transition(name="ticket")
+  .row
+      .col-md-3
+         label Type
+         input(type="text", class="form-control form-control-success", v-model="type")
+      .col-md-3
+         label Price
+         input(type="text", class="form-control form-control-success", v-model="price")
+      .col-md-3
+         label Currency
+         select(class="form-control", v-model="currency")
+          option(value="RON") RON
+          option(value="EUR") EUR
+          option(value="USD") USD
+          option(value="GBP") GBP
+      .col-md-1
+          label Save
+          button(type="button", class="btn btn-primary", @click="saveTicket")
+            i(class="fa fa-save fa-1g")
+      .col-md-2
+          label Remove
+          button(type="button", class="btn btn-primary", @click="removeTicket" )
+            i(class="fa fa-trash fa-1g")
+

@@ -1,0 +1,63 @@
+transition(name="modal")
+  .modal-mask
+    .modal-wrapper
+      .modal-container
+
+        .modal-header
+          slot(name="header")
+            label Add event
+        .modal-body 
+          slot(name="body")
+            form
+              div(class="form-group", :class="{'has-error': errors.has('title')}")
+                label Event Name
+                input(type="text", class="form-control", id="eventName", placeholder="Add event title..", v-model="title", v-validate="'required'", name="title") 
+                div(v-if="errors.has('title')", :class="{'alert-danger': errors.has('title'), 'alert': errors.has('title')}")
+                  ${ errors.items[0].msg }
+              .form-group
+                label Event Description
+                textarea(class="form-control", id="eventdescription", rows="5", placeholder="Add event description", v-model="description")
+              .form-group
+                label Event Time
+                input(type="date", v-model="eventTime")
+              div(v-if="!image")
+                .form-group
+                  label(class="custom-file")
+                  input(type="file", class="custom-file-input", @change="onFileChange")
+                  span(class="custom-file.control")
+              div(v-else)
+                .row
+                  img(:src="image", class="modalImg")
+                .row
+                  button(class="btn btn-primary", @click="removeImage") Remove Image
+              .row
+                 div(class="pac-card", id="pac-card")
+              .form-group        
+                 div(id="pac-container")
+                   label Event location
+                   input(id="pac-input", type="text", class="form-control", placeholder="Enter a location", v-model="address") 
+             .form-group
+              .row
+                .col-md-5
+                  div(id="map")
+                    #infowindow-content
+                      img(src="" width="16", height="16", id="place-icon")
+                      span(id="place-name",  class="title")
+                      span(id="place-address")
+                .col-md-7
+                    .row
+                      label Add tickets
+                      button(type="button", class="btn btn-primary", @click="appendTicketForm")
+                        i(class="fa fa-plus fa-1g")
+                    .row
+                      .form-group
+                        #tickets
+                          div(v-for="{ticket, key} in tickets")
+                            .form-group
+                              ticket(v-on:remove="removeTicketType(key)", v-on:save="saveTicketType") 
+                    div(class="row", :style="{ display: isAdded}")
+                      pre(class="text-success", :class="{ 'bg-success': isAdded}") Tickets have been added to your event
+              .form-group
+                button(class="modal-default-button", @click="closeModal") Cancel
+                button(class="modal-default-button", @click="validateBeforeSubmit") Create Event
+                

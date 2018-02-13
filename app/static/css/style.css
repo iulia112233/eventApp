@@ -1,0 +1,275 @@
+.header {
+  color: #ffa500;
+  background-Image: url("/static/img/events-banner.jpg");
+  height: 325px;
+}
+.button {
+  background-color: #411237;
+  color: #fff;
+}
+.menu a {
+  color: #fff;
+  text-decoration: none;
+  margin: 5px;
+  background-color: #5f2151;
+  text-transform: uppercase;
+  font-size: 14px;
+  border-radius: 5px;
+}
+.welcome {
+  padding-top: 15px;
+}
+.profilePicture {
+  height: 200px;
+  width: 300px;
+  border-radius: 25px;
+}
+.content {
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  margin-top: 30px;
+  color: #337ab7;
+}
+.sidebar {
+  margin-top: -300px;
+}
+.sidebar img {
+  border: solid #5f2151 5px;
+}
+.sidebar label {
+  margin: 5px;
+}
+.eventData img {
+  max-width: 100%;
+  width: 100%;
+  min-height: 210px;
+}
+.eventBody {
+  overflow: hidden;
+  height: 100px;
+  text-overflow: ellipse;
+}
+#app h3 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 6px 0px 41px 0px;
+}
+#app label {
+  font-weight: 700;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 5px;
+  background-color: #5f2151;
+  text-transform: uppercase;
+  font-size: 14px;
+  border-radius: 5px;
+}
+.gallery img {
+  width: 25%;
+  float: left;
+  max-width: 300px;
+  max-height: 180px;
+  margin: 15px;
+  border-radius: 5%;
+}
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+.modal-container {
+  width: 900px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.modal-header h3 {
+margin-top
+  color: #42b983;
+}
+.modal-body {
+  margin: 20px 0;
+}
+.modal-default-button {
+  float: right;
+}
+.modal-wrapper img {
+  max-width: 100%;
+  max-height: 400px;
+  margin: auto;
+  display: block;
+}
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+.modal-enter {
+  opacity: 0;
+}
+.modal-leave-active {
+  opacity: 0;
+}
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+.eventBlock {
+  margin-top: 30px;
+}
+.commentBox img {
+  width: 80px;
+}
+.modalImg {
+  max-width: 100%;
+  max-height: 500px;
+}
+#map {
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+#infowindow-content .title {
+  font-weight: bold;
+}
+#infowindow-content {
+  display: none;
+}
+#map #infowindow-content {
+  display: inline;
+}
+.pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  background-color: #fff;
+  font-family: Roboto;
+}
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+.pac-logo {
+  z-index: 99999 !important;
+}
+.event img {
+  max-height: 500px;
+  max-width: 500px;
+}
+.ev-header {
+  height: 500px;
+  background-size: cover;
+}
+.eventTitle {
+  font-size: 36px;
+}
+.commentBody {
+  margin-top: 20px;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover {
+  color: #337ab7;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+}
+.imgwrapper {
+  width: 80%;
+  max-height: 200px;
+}
+.adminMenu {
+  text-align: center;
+}
+.eventLinks {
+  text-decoration: none;
+}
+.eventLinks:hover {
+  cursor: pointer;
+  color: #f00;
+}
+.eventRow {
+  margin-top: 40px;
+}
+.footer {
+  height: 100px;
+  text-align: center;
+}
+.logo {
+  margin: 10px;
+}
+.footer p {
+  margin-top: 100px;
+}
+.menuButtons {
+  margin-top: 10px;
+  margin-left: -60px;
+}
+.welcometext {
+  font-size: 20px;
+  text-align: center;
+}

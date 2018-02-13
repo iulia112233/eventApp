@@ -1,0 +1,29 @@
+extends base
+
+block content
+  .container
+    div(id="app", class="gallery")
+      h3("text-primary") Select profile picture
+      .row
+        form
+          div(v-for="image in imageList", v-on:click="copySrc")
+              img(:src="image", v-bind:style="style")
+      .row
+          form
+            h3("text-primary") or browse profile picture
+            h2 Select an image
+            input(type="file", @change="onFileChange")
+            div(v-if="image")
+              .row
+                img(:src="image")
+              .row
+                button(class="btn btn-primary", @click="removeImage")
+                  label Remove image
+                button(class="btn btn-primary", @click="submitFormData")
+                  label Set profile picture
+                              
+
+block scripts
+  script(src="../static/js/gallery.js")
+
+      

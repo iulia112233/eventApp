@@ -1,0 +1,33 @@
+extends base
+
+block content
+
+  #app
+    .container
+      .col-md-6
+        h3(class="text-primary formTitle") Reset passsword
+        form
+          .form-group
+            .row
+              .col-md-2
+                label Username
+              .col-md-7
+                input(type="text", class="form-control", v-model="username" )
+          .form-group
+            .row
+              .col-md-2
+              .col-md-7
+                button(type="button", class="btn btn-primary form-control", @click='submit') Reset
+        div(v-if="link")
+          label An email with instructions for resetting your password has been sent to you email address 
+        .errors
+          {% with messages = get_flashed_messages() %}
+          {% if messages %} 
+          {% for message in messages %}
+          label {{ message }}
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+
+block scripts
+ script(src="../static/js/reset.js")

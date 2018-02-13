@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    title Index
+    script(src="https://unpkg.com/axios/dist/axios.min.js")
+    link(rel="stylesheet",href=" https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css") 
+    link(href="https://fonts.googleapis.com/css?family=Lato:300", rel="stylesheet") 
+    link(rel='stylesheet', href='/static/css/style.css')
+
+  
+  body
+
+    .appRoot
+      div(v-if="userIsLoggedIn")
+        .row
+          .col-md-6
+           div(id="mySidenav", class="sidenav")
+            a(href="javascript:void(0)", class="closebtn", onclick="closeNav()")&times;
+            a(href="/index") Home
+            a(href="/edit") Edit profile
+            a(href="/changePicture") Change picture
+            a(href="/logout") Logout
+
+           span(style="font-size:30px;cursor:pointer", onclick="openNav()")
+            &#9776; Menu
+          div(class="col-md-offset-2 col-md-2")
+            h1(class="text-primary logo") Events.com
+      block fullpage
+    
+
+    div(class="row")
+      block content  
+
+    div(class="footer")
+      p
+        &copy; 2018 Iulia 
+
+
+    script(src="https://unpkg.com/vue")
+    script(src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/2.0.2/vee-validate.js")
+    script(src="https://unpkg.com/vue-router/dist/vue-router.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js")
+    script(src="https://use.fontawesome.com/ffbc9b729f.js")
+    script(src="https://unpkg.com/vuetable-2@1.6.0")
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvz_6PC1gIyIsQl-_607oNnMRgOkT56cs&libraries=places")
+    script(type="text/javascript", src="https://js.stripe.com/v2/")
+    script(src="../static/js/base.js")
+      
+    block scripts
